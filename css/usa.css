@@ -1,0 +1,209 @@
+.usa-map,
+.usa-map * {
+  box-sizing: border-box;
+}
+
+.usa-map {
+  position: relative;
+  max-width: 980px;
+  margin: auto;
+  padding: 20px;
+}
+
+.usa-map svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.5));
+}
+
+.usa-map path {
+  stroke: #ffffff;
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+
+.usa-map [data-title] {
+  fill: #858585;
+  transition: fill 0.2s;
+}
+
+.usa-map [data-title]:hover {
+  fill: #c06464;
+}
+
+.usa-map .district-text {
+  display: none;
+  position: absolute;
+  z-index: 6;
+  left: 0;
+  top: 60px;
+  width: calc(100% - 20px);
+  height: calc(100% - 90px);
+  padding: 0 20px;
+  color: #fff;
+  font-size: 13px;
+  font-family: Verdana, sans-serif;
+}
+
+.usa-map .close-district {
+  opacity: 0;
+  z-index: 6;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  line-height: 1;
+  font-size: 40px;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 1s;
+  pointer-events: none;
+}
+
+.usa-map.open .close-district {
+  opacity: 1;
+  pointer-events: initial;
+}
+
+.usa-map .district-links {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.usa-map .district-links div {
+  font-size: 13px;
+  font-family: Verdana, sans-serif;
+  padding: 4px;
+}
+
+.usa-map .district-links div:after {
+  content: " | ";
+  color: #337ab7;
+}
+
+.usa-map .district-links div:last-child:after {
+  content: "";
+}
+
+.dropfill {
+  fill: #337ab7 !important;
+}
+
+.mainfill {
+  fill: #1d4567 !important;
+}
+
+@media (min-width: 768px) {
+  .usa-map .district b {
+    width: 28px;
+    height: 28px;
+    left: 6px;
+    top: 28px;
+  }
+  .usa-map .district span {
+    top: 30px;
+    left: 46px;
+    font-size: 20px;
+    font-weight: normal;
+  }
+  .usa-map .district-text {
+    left: 30px;
+    top: 80px;
+    width: calc(100% - 60px);
+    height: calc(100% - 130px);
+    font-size: 16px;
+  }
+  .usa-map .close-district {
+    width: 60px;
+    height: 60px;
+    font-size: 60px;
+  }
+  .usa-map .district-links {
+    display: none;
+  }
+}
+.usa-map [data-completed=first] {
+  fill: rgb(19, 143, 56);
+}
+.usa-map [data-completed=first]:hover {
+  fill: rgb(19, 143, 56);
+}
+
+.usa-map [data-completed=second] {
+  fill: rgb(209, 183, 36);
+}
+.usa-map [data-completed=second]:hover {
+  fill: rgb(209, 183, 36);
+}
+
+.usa-map [data-completed=third] {
+  fill: rgb(177, 37, 19);
+}
+.usa-map [data-completed=third]:hover {
+  fill: rgb(177, 37, 19);
+}
+
+.usa-map [data-completed=lose] {
+  fill: rgb(95, 0, 0);
+}
+.usa-map [data-completed=lose]:hover {
+  fill: rgb(177, 37, 19);
+}
+
+.map-text {
+  padding-top: 50px;
+  margin-bottom: 50px;
+  font-size: 32px;
+  text-align: center;
+}
+
+.map-current-target-text {
+  text-align: center;
+  font-style: bold;
+  font-size: 20px;
+  height: 30px;
+}
+
+.map-try-text {
+  padding-top: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+}
+.map-item {
+  position: relative;
+}
+
+.map-item-text {
+  font-size: 14px;
+  font-weight: bold;
+  fill: rgba(255, 255, 255, 0.8078431373);
+  text-anchor: middle;
+  pointer-events: none;
+}
+.map-item-text tspan {
+  display: block;
+}
+
+.map-item-text-bg {
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  fill: rgba(8, 9, 10, 0.514);
+}
+
+svg {
+  overflow: visible;
+}
+
+.hidden {
+  opacity: 0;
+}/*# sourceMappingURL=usa.css.map */

@@ -1,0 +1,83 @@
+.world-map,
+.world-map * {
+  box-sizing: border-box;
+}
+
+.world-map {
+  position: relative;
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.world-map svg {
+  width: 200%;
+  height: 100%;
+  filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.5));
+}
+
+.world-map path {
+  stroke: #ffffff;
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+
+.world-map [data-title] {
+  fill: #858585;
+  transition: fill 0.2s;
+}
+
+.world-map [data-title]:hover {
+  fill: #c06464;
+}
+
+.world-map [data-completed=first] {
+  fill: rgb(19, 143, 56);
+}
+.world-map [data-completed=first]:hover {
+  fill: rgb(19, 143, 56);
+}
+
+.world-map [data-completed=second] {
+  fill: rgb(209, 183, 36);
+}
+.world-map [data-completed=second]:hover {
+  fill: rgb(209, 183, 36);
+}
+
+.world-map [data-completed=third] {
+  fill: rgb(177, 37, 19);
+}
+.world-map [data-completed=third]:hover {
+  fill: rgb(177, 37, 19);
+}
+
+.world-map [data-completed=lose] {
+  fill: rgb(95, 0, 0);
+}
+.world-map [data-completed=lose]:hover {
+  fill: rgb(177, 37, 19);
+}
+
+.map-text {
+  padding-top: 50px;
+  margin-bottom: 50px;
+  font-size: 32px;
+  text-align: center;
+}
+
+.map-current-target-text {
+  text-align: center;
+  font-style: bold;
+  font-size: 20px;
+  height: 30px;
+}
+
+.map-try-text {
+  padding-top: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}/*# sourceMappingURL=world.css.map */
