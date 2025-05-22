@@ -9,11 +9,35 @@
 <body>
     <div class="container">
         <div class="map-wrapper">
+            <div class="modal-window none">
+                <div class="modal-window__block">
+                    <h3>Игра Окончена!</h3>
+                    <div class="modal-window__results">
+                        <div class="map-try-text">
+                            <span class="map-try-text__first"></span>
+                            <span class="map-try-text__second"></span>
+                            <span class="map-try-text__third"></span>
+                        </div>
+                    </div>
+                    <div class="modal-window__buttons">
+                        <button class="modal-window__button modal-window__button-restart">restart</button>
+                        <button class="modal-window__button modal-window__button-close">close</button>
+                    </div>
+                </div>
+            </div>
             <div class="map-text"></div>
-            <div class="map-try-text">
-                <span class="map-try-text__first"></span>
-                <span class="map-try-text__second"></span>
-                <span class="map-try-text__third"></span>
+            <div class="map__option">
+                <div class="map__timer">
+                    Времени осталось:
+                </div>
+                <div class="map-button-start">
+                    <button class="map-button-start__btn">Начать игру</button>
+                </div>
+                <div class="map__option-buttons">
+                    <button id="easy" class="map__option-buttons-btn">Легко</button>
+                    <button id="normal" class="map__option-buttons-btn">Нормально</button>
+                    <button id="hard" class="map__option-buttons-btn">Сложно</button>
+                </div>
             </div>
             <div class="map-current-target-text"></div>
             <div class="rf-map">

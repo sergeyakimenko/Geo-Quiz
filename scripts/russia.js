@@ -5,6 +5,55 @@ const firstTryText = document.querySelector(".map-try-text__first");
 const secondTryText = document.querySelector(".map-try-text__second");
 const thirdTryText = document.querySelector(".map-try-text__third");
 const mapWrapper = document.querySelector(".map-wrapper");
+const timer = document.querySelector(".map__timer");
+const modalWindow = document.querySelector(".modal-window");
+const startButton = document.querySelector(".map-button-start__btn");
+const closeButton = document.querySelector(".modal-window__button-close");
+const restartButton = document.querySelector(".modal-window__button-restart");
+
+let timerId;
+let time = 3;
+
+// const formattedTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+// timer.textContent = `Времени осталось: ${formattedTime}`;
+
+const timeEasy = 600;
+const timeNormal = 420;
+const timeHard = 300;
+
+startButton.addEventListener("click", () => {
+    timer.classList.remove("none");
+    time = 3;
+    timerId = setInterval(timerUpdate, 1000);
+});
+
+function timerUpdate() {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    const formattedTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    timer.textContent = `Времени осталось: ${formattedTime}`;
+    console.log(`${minutes}:${seconds.toString().padStart(2, "0")}`);
+    if (time <= 0) {
+        clearInterval(timerId);
+        modalWindow.classList.remove("none");
+        console.log("Время вышло!");
+    }
+
+    time--;
+}
+
+modalWindow.addEventListener("click", (event) => {
+    target = event.target;
+    if (target === closeButton) {
+        modalWindow.classList.add("none");
+    }
+    if (target === restartButton) {
+        modalWindow.classList.add("none");
+        time = 3;
+        timerId = setInterval(timerUpdate, 1000);
+    }
+});
+
 const regions = [
     { title: "Москва" },
     { title: "Санкт-Петербург" },
@@ -118,7 +167,7 @@ thirdTryText.textContent = "Угадано с третьей и более по�
 items.forEach((item) => {
     item.addEventListener("click", function () {
         showItemText(item);
-
+        soundClick();
         if (item.dataset.title === randomElement.title) {
             if (clickCounter === 0) {
                 item.dataset.completed = "first";
@@ -234,4 +283,11 @@ function showItemText(item) {
         textElement.classList.add("hidden");
         textBg.classList.add("hidden");
     }, 1000);
+}
+
+function soundClick() {
+    const clickSound = new Audio();
+    clickSound.src = "../sound/click-sound.mp3";
+    clickSound.autoplay = true;
+    console.log(clickSound);
 }
