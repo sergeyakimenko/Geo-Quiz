@@ -1,0 +1,89 @@
+body {
+  background-color: rgba(0, 0, 0, 0.466);
+}
+
+.container {
+  padding: 0 25px;
+  margin: 0 auto;
+}
+
+.main {
+  position: relative;
+  text-align: center;
+  padding-top: 10%;
+}
+.main__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main__flag {
+  padding-bottom: 80px;
+}
+.main__flag img {
+  min-width: 300px;
+  height: 200px;
+  border: 2px solid rgba(0, 0, 0, 0.568627451);
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.568627451);
+}
+.main__buttons {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  text-align: center;
+}
+.main__button {
+  font-size: 18px;
+  width: 180px;
+  -webkit-hyphens: auto;
+          hyphens: auto;
+  word-break: break-word;
+  height: 80px;
+  background-color: rgba(209, 209, 209, 0.568627451);
+  border: none;
+  border-radius: 10px;
+  transition: all 0.1s ease-in;
+}
+.main__button:hover {
+  background-color: rgba(255, 255, 255, 0.568627451);
+}
+.main__health-point-bar {
+  position: absolute;
+  top: 60px;
+  right: 160px;
+}
+.main__health-point-bar svg {
+  fill: rgb(235, 67, 67);
+  stroke: rgb(14, 13, 13);
+  transition: all 0.3s ease-in;
+}
+.main__health-point-item {
+  width: 40px;
+  height: 40px;
+  transition: all 0.2s ease-in;
+}
+
+.game-over {
+  position: absolute;
+  font-size: 44px;
+}
+.game-over__title {
+  margin-bottom: 40px;
+}
+.game-over__result {
+  margin-top: 20px;
+}
+.none {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.4);
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.button-win {
+  background-color: rgb(5, 212, 16) !important;
+}
+
+.button-lose {
+  background-color: rgb(255, 49, 49) !important;
+}/*# sourceMappingURL=flags.css.map */

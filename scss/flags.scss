@@ -1,0 +1,102 @@
+body {
+    background-color: rgba(0, 0, 0, 0.466);
+}
+
+.container {
+    padding: 0 25px;
+    margin: 0 auto;
+}
+.main {
+    position: relative;
+    text-align: center;
+    padding-top: 10%;
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__flag {
+        padding-bottom: 80px;
+        img {
+            min-width: 300px;
+            height: 200px;
+            border: 2px solid #00000091;
+            box-shadow: 4px 4px 4px 4px #00000091;
+        }
+    }
+    &__start-btn {
+    }
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        text-align: center;
+    }
+    &__button {
+        font-size: 18px;
+        width: 180px;
+        hyphens: auto;
+        word-break: break-word;
+        height: 80px;
+        background-color: #d1d1d191;
+        border: none;
+        border-radius: 10px;
+        transition: all 0.1s ease-in;
+        &:hover {
+            background-color: #ffffff91;
+        }
+    }
+    &__health-point-bar {
+        position: absolute;
+        top: 60px;
+        right: 160px;
+        // display: flex;
+        // flex-direction: column;
+        // gap: 20px;
+        svg {
+            fill: rgb(235, 67, 67);
+            stroke: rgb(14, 13, 13);
+            transition: all 0.3s ease-in;
+            // &:hover {
+            //     fill: rgba(255, 255, 255, 0);
+            // }
+        }
+    }
+    &__health-point-item {
+        width: 40px;
+        height: 40px;
+        transition: all 0.2s ease-in;
+    }
+}
+
+.game-over {
+    position: absolute;
+    font-size: 44px;
+
+    &__title {
+        margin-bottom: 40px;
+    }
+    &__text {
+    }
+    &__result {
+        margin-top: 20px;
+    }
+    &__best-result {
+    }
+}
+
+.none {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.4);
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.button-win {
+    background-color: rgb(5, 212, 16) !important;
+}
+.button-lose {
+    background-color: rgb(255, 49, 49) !important;
+}

@@ -1,10 +1,21 @@
+// @import url(https://fonts.googleapis.com/css?family=Rubik+Doodle+Shadow:regular&display=swap&subset=cyrillic);
+@import url(https://fonts.googleapis.com/css?family=Kurale:regular&display=swap&subset=cyrillic);
+$font: "Kurale";
+
+body {
+    font-family: $font;
+    background-color: #e6e6e6;
+}
+
+.button {
+}
+
 .rf-map,
 .rf-map * {
     box-sizing: border-box;
 }
 .rf-map {
     position: relative;
-    // max-width: 980px;
     margin: auto;
     padding: 20px;
 }
@@ -12,18 +23,20 @@
 .rf-map svg {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.603));
 }
 
 .rf-map path {
     stroke: #ffffff;
-    stroke-width: 1;
+    stroke-width: 0.7;
     stroke-linejoin: round;
 }
-.rf-map [data-code] {
+
+.rf-map {
     fill: #858585;
     transition: fill 0.2s;
 }
+
 .rf-map [data-code]:hover {
     fill: #c06464;
 }
@@ -54,18 +67,115 @@
     }
 }
 .map {
+    font-family: $font;
     &__option {
+        box-sizing: border-box;
         display: flex;
         justify-content: space-around;
     }
-    &__timer {
+
+    &__health-point-bar {
+        position: absolute;
+        top: 60px;
+        right: 160px;
+        svg {
+            fill: rgb(235, 67, 67);
+            stroke: rgb(14, 13, 13);
+            transition: all 0.3s ease-in;
+        }
+    }
+    &__health-point-item {
+        width: 40px;
+        height: 40px;
+        transition: all 0.2s ease-in;
+    }
+
+    &__sound-option {
+        position: absolute;
+        left: 180px;
+        top: 50px;
+        transition: all 0.3s ease-in;
+        z-index: 5;
+    }
+
+    &__sound-option-on {
+        margin-top: 8px;
+        margin-left: 8px;
+        width: 30px;
+        height: 30px;
+        padding: 8px;
+        fill: #020202bb;
+        border-radius: 50%;
+        transition: all 0.1s ease-in;
+        &:hover {
+            fill: #020202da;
+            transform: scale(1.1);
+            background-color: #63636315;
+        }
+        path {
+            pointer-events: none;
+        }
+    }
+    &__sound-option-off {
+        margin-top: 8px;
+        margin-left: 8px;
+        width: 30px;
+        height: 30px;
+        padding: 8px;
+        fill: #020202bb;
+        border-radius: 50%;
+        transition: all 0.1s ease-in;
+        &:hover {
+            fill: #020202da;
+            transform: scale(1.1);
+            background-color: #63636315;
+        }
+        path {
+            pointer-events: none;
+        }
+    }
+
+    &__theme {
+        position: absolute;
+        left: 260px;
+        top: 58px;
+        z-index: 5;
+    }
+
+    &__theme-light {
+        width: 30px;
+        height: 30px;
+        padding: 8px;
+        fill: #020202bb;
+        border-radius: 50%;
+        transition: all 0.1s ease;
+        &:hover {
+            fill: #020202da;
+            transform: scale(1.1);
+            background-color: #63636315;
+        }
+    }
+
+    &__theme-dark {
+        width: 30px;
+        height: 30px;
+        padding: 6px;
+        fill: #020202bb;
+        border-radius: 50%;
+        transition: all 0.1s ease;
+        &:hover {
+            fill: #020202da;
+            transform: scale(1.1);
+            background-color: #63636315;
+        }
     }
 }
 .map-text {
+    font-family: $font;
     position: sticky;
-    top: 10px;
-    z-index: 100;
-    padding-top: 50px;
+    top: 0;
+    z-index: 4;
+    padding-top: 34px;
     margin-bottom: 50px;
     font-size: 32px;
     text-align: center;
@@ -78,7 +188,7 @@
     position: absolute;
     cursor: default;
     text-align: center;
-    display: block;
+    display: none;
     padding: 13px 28px;
     font-size: 14px;
     line-height: 1;
@@ -88,6 +198,7 @@
 }
 
 .map-try-text {
+    font-family: $font;
     padding-bottom: 20px;
     text-align: center;
     display: flex;
@@ -113,6 +224,7 @@
 }
 
 .map-item-text {
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     font-weight: bold;
     fill: #ffffffce;
@@ -151,6 +263,9 @@ svg {
     align-items: center;
     z-index: 100;
     background-color: rgba(48, 46, 46, 0.555);
+    h3 {
+        font-size: 24px;
+    }
     &__block {
         display: flex;
         align-items: center;
@@ -174,6 +289,7 @@ svg {
         height: 40px;
         border: 1px solid #923c3c;
 
+        font-size: 18px;
         border-radius: 5px;
         transition: all 0.3s ease;
         &:hover {
@@ -186,38 +302,79 @@ svg {
 .none {
     display: none;
 }
-// .map__label {
-//     position: absolute;
-//     -webkit-transform: translate(-50%, -120%);
-//     transform: translate(-50%, -120%);
-//     cursor: default;
-//     text-align: center;
-//     display: block;
-//     padding: 13px 28px;
-//     font-size: 14px;
-//     line-height: 1;
-//     color: #050505;
-//     background-color: #ffffff36;
-//     border: 1px solid #0505058f;
-//     -webkit-box-shadow: 0 10px 14px 0 rgba(0, 0, 0, 0.3);
-//     box-shadow: 0 10px 14px 0 rgba(0, 0, 0, 0.3);
-//     z-index: 100;
-//     &:active {
-//         display: block;
-//     }
-//     &::before {
-//         content: "";
-//         position: absolute;
-//         top: 100%;
-//         left: 50%;
-//         // -webkit-transform: translateX(-50%);
-//         // transform: translateX(-50%);
-//         width: 0;
-//         height: 0;
-//         border-left: 6px solid transparent;
-//         border-right: 6px solid transparent;
-//         border-top: 8px solid #fff;
-//         -webkit-box-shadow: 0 10px 14px 0 rgba(0, 0, 0, 0.3);
-//         box-shadow: 0 10px 14px 0 rgba(0, 0, 0, 0.3);
-//     }
-// }
+
+.dark-theme {
+    color: #d2d2d2;
+    background-color: #2d384a;
+    .rf-map {
+        svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.637));
+        }
+        path {
+            stroke: #000000;
+            stroke-width: 0.7;
+            stroke-linejoin: round;
+        }
+    }
+    .map {
+        &__health-point-bar {
+            svg {
+                fill: rgb(235, 67, 67);
+                stroke: rgb(0, 0, 0);
+            }
+        }
+
+        &__sound-option-on {
+            fill: #949494;
+            &:hover {
+                fill: #d2d2d2;
+                background-color: #d2d2d233;
+            }
+            path {
+                pointer-events: none;
+            }
+        }
+        &__sound-option-off {
+            fill: #949494;
+            &:hover {
+                fill: #d2d2d2;
+                background-color: #d2d2d233;
+            }
+        }
+        &__theme-light {
+            fill: #949494;
+            &:hover {
+                color: #d2d2d2;
+                fill: #d2d2d2;
+                background-color: #d2d2d233;
+            }
+        }
+
+        &__theme-dark {
+            fill: #020202bb;
+            &:hover {
+                fill: #d2d2d2;
+                background-color: #d2d2d233;
+            }
+        }
+    }
+    .modal-window {
+        background-color: rgba(48, 46, 46, 0.555);
+        color: #d2d2d2;
+        &__block {
+            background-color: #2d384a;
+            border: 1px solid #d2d2d2;
+        }
+        &__buttons {
+        }
+        &__button {
+            border: 1px solid #ff4c2b;
+            &:hover {
+                background-color: #ff4c2b;
+                color: #dfdfdf;
+            }
+        }
+    }
+}

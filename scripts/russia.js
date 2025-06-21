@@ -1,57 +1,76 @@
 const items = document.querySelectorAll(".map-item");
+const itemsConatiner = document.querySelector(".rf-map");
 const mapText = document.querySelector(".map-text");
-const targetText = document.querySelector(".map-current-target-text");
+
 const firstTryText = document.querySelector(".map-try-text__first");
 const secondTryText = document.querySelector(".map-try-text__second");
 const thirdTryText = document.querySelector(".map-try-text__third");
 const mapWrapper = document.querySelector(".map-wrapper");
 const timer = document.querySelector(".map__timer");
 const modalWindow = document.querySelector(".modal-window");
-const startButton = document.querySelector(".map-button-start__btn");
 const closeButton = document.querySelector(".modal-window__button-close");
 const restartButton = document.querySelector(".modal-window__button-restart");
+const healtItems = document.querySelectorAll(".map__health-point-item");
 
-let timerId;
-let time = 3;
+const buttonsSoundOptions = document.querySelector(".map__sound-option");
+const buttonSoundOn = document.querySelector(".map__sound-option-on");
+const buttonSoundOff = document.querySelector(".map__sound-option-off");
 
-// const formattedTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
-// timer.textContent = `Времени осталось: ${formattedTime}`;
+const buttonsThemeOptions = document.querySelector(".map__theme");
+const buttonLightTheme = document.querySelector(".map__theme-light");
+const buttonsDarkTheme = document.querySelector(".map__theme-dark");
 
-const timeEasy = 600;
-const timeNormal = 420;
-const timeHard = 300;
+buttonsThemeOptions.addEventListener("click", buttonThemeToggle);
 
-startButton.addEventListener("click", () => {
-    timer.classList.remove("none");
-    time = 3;
-    timerId = setInterval(timerUpdate, 1000);
-});
-
-function timerUpdate() {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    const formattedTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
-    timer.textContent = `Времени осталось: ${formattedTime}`;
-    console.log(`${minutes}:${seconds.toString().padStart(2, "0")}`);
-    if (time <= 0) {
-        clearInterval(timerId);
-        modalWindow.classList.remove("none");
-        console.log("Время вышло!");
+function buttonThemeToggle(event) {
+    if (event.target === buttonLightTheme) {
+        buttonLightTheme.classList.toggle("none");
+        buttonsDarkTheme.classList.toggle("none");
+        document.body.classList.toggle("dark-theme");
+    } else {
+        buttonLightTheme.classList.toggle("none");
+        buttonsDarkTheme.classList.toggle("none");
+        document.body.classList.toggle("dark-theme");
     }
-
-    time--;
 }
 
+buttonsSoundOptions.addEventListener("click", buttonsSoundToggle);
+
+function buttonsSoundToggle(event) {
+    if (event.target === buttonSoundOn) {
+        buttonSoundOn.classList.toggle("none");
+        buttonSoundOn.setAttribute("sound", "off");
+        buttonSoundOff.classList.toggle("none");
+    } else {
+        buttonSoundOn.removeAttribute("sound");
+        buttonSoundOff.classList.toggle("none");
+        buttonSoundOn.classList.toggle("none");
+    }
+    soundClick();
+}
+
+let healthPoints = 3;
+
+// function disableClick(event) {}
+const hpItemsArray = [];
 modalWindow.addEventListener("click", (event) => {
-    target = event.target;
+    const target = event.target;
     if (target === closeButton) {
         modalWindow.classList.add("none");
+        itemsConatiner.removeEventListener("click", onclickItems, false);
     }
     if (target === restartButton) {
         modalWindow.classList.add("none");
-        time = 3;
-        timerId = setInterval(timerUpdate, 1000);
+        healthPoints = 3;
+        items.forEach((item) => {
+            item.removeAttribute("data-completed");
+        });
+        hpItemsArray.forEach((item) => {
+            item.style.fill = "rgb(235, 67, 67)";
+        });
+        mapText.classList.toggle("none");
     }
+    document.documentElement.style.overflow = "";
 });
 
 const regions = [
@@ -164,51 +183,69 @@ firstTryText.textContent = "Угадано с первой попытки: ";
 secondTryText.textContent = "Угадано со второй попытки: ";
 thirdTryText.textContent = "Угадано с третьей и более попытки: ";
 
-items.forEach((item) => {
-    item.addEventListener("click", function () {
-        showItemText(item);
-        soundClick();
-        if (item.dataset.title === randomElement.title) {
-            if (clickCounter === 0) {
-                item.dataset.completed = "first";
-                firstTryCounter++;
-                firstTryText.textContent = `Угадано с первой попытки: ${firstTryCounter}`;
-                console.log(item.dataset);
-            } else if (clickCounter === 1) {
-                secondTryCounter++;
-                secondTryText.textContent = `Угадано со второй попытки: ${secondTryCounter}`;
-                item.dataset.completed = "second";
-            } else {
-                thirdTryCounter++;
-                thirdTryText.textContent = `Угадано с третьей и более попытки: ${thirdTryCounter}`;
-                item.dataset.completed = "third";
-            }
-            clickCounter = 0;
-            console.log(clickCounter);
-            const index = copyRegions.findIndex(
-                (region) => region.title === randomElement.title
-            );
-            if (index !== -1) {
-                copyRegions.splice(index, 1);
-            }
-            if (copyRegions.length === 0) {
-                mapText.textContent = "Игра завершена!";
-            }
-            randomElement =
-                copyRegions.length > 0 ? getRandomElemet(copyRegions) : null;
-            console.log("win");
-            // console.log(randomElement);
-        } else {
-            console.log("lose");
-            clickCounter++;
-            // console.log(clickCounter);
-        }
+itemsConatiner.addEventListener("click", onclickItems);
 
-        mapText.textContent = randomElement.title;
-        isLose();
+function onclickItems(event) {
+    const target = event.target;
+    pushItems();
+    if (target.nodeName !== "path") {
+        return;
+    }
+    showItemText(event);
+    soundClick();
+    if (target.dataset.title === randomElement.title) {
+        if (clickCounter === 0) {
+            target.dataset.completed = "first";
+            firstTryCounter++;
+            firstTryText.textContent = `Угадано с первой попытки: ${firstTryCounter}`;
+            console.log(target.dataset);
+        } else if (clickCounter === 1) {
+            secondTryCounter++;
+            secondTryText.textContent = `Угадано со второй попытки: ${secondTryCounter}`;
+            target.dataset.completed = "second";
+        } else {
+            loseHealth();
+            thirdTryCounter++;
+            thirdTryText.textContent = `Угадано с третьей и более попытки: ${thirdTryCounter}`;
+            target.dataset.completed = "third";
+            if (healthPoints === 0) {
+                modalWindow.classList.toggle("none");
+                document.documentElement.style.overflow = "hidden";
+                mapText.classList.add("none");
+                soundGameOver();
+            }
+        }
+        clickCounter = 0;
         // console.log(clickCounter);
-    });
-});
+        const index = copyRegions.findIndex(
+            (region) => region.title === randomElement.title
+        );
+        if (index !== -1) {
+            copyRegions.splice(index, 1);
+        }
+        if (copyRegions.length === 0) {
+            mapText.textContent = "Игра завершена!";
+            modalWindow.classList.remove("none");
+            mapText.classList.toggle("none");
+        }
+        randomElement =
+            copyRegions.length > 0 ? getRandomElemet(copyRegions) : null;
+        console.log("win");
+        // console.log(randomElement);
+    } else {
+        console.log("lose");
+        clickCounter++;
+        // console.log(clickCounter);
+    }
+
+    mapText.textContent = randomElement.title;
+    isLose();
+    // console.log(clickCounter);
+}
+
+// items.forEach((item) => {
+//     item.addEventListener("click", function () {});
+// });
 
 function isLose() {
     if (clickCounter >= 3) {
@@ -220,8 +257,9 @@ function isLose() {
     }
 }
 
-function showItemText(item) {
-    const svg = item.closest("svg");
+function showItemText(event) {
+    const target = event.target;
+    const svg = target.closest("svg");
     svg.querySelectorAll(".map-item-text, .map-item-text-bg").forEach((el) =>
         el.remove()
     );
@@ -235,7 +273,7 @@ function showItemText(item) {
         "rect"
     );
 
-    const bbox = item.getBBox();
+    const bbox = target.getBBox();
     const centerX = bbox.x + bbox.width / 2;
     const centerY = bbox.y + bbox.height / 2;
 
@@ -254,12 +292,14 @@ function showItemText(item) {
     textElement.setAttribute("x", centerX);
     textElement.setAttribute("y", centerY);
     textElement.setAttribute("text-anchor", "middle");
+    textElement.setAttribute("textLength", "130"); // Желаемая ширина
+    textElement.setAttribute("lengthAdjust", "spacingAndGlyphs"); // Равн
     textElement.setAttribute("dominant-baseline", "middle");
-    console.log(textElement);
+    // console.log(textElement);
 
     svg.appendChild(textBg);
     svg.appendChild(textElement);
-    textElement.textContent = item.dataset.title;
+    textElement.textContent = target.dataset.title;
 
     setTimeout(() => {
         const textLength = textElement.getComputedTextLength();
@@ -288,6 +328,39 @@ function showItemText(item) {
 function soundClick() {
     const clickSound = new Audio();
     clickSound.src = "../sound/click-sound.mp3";
-    clickSound.autoplay = true;
+    if (buttonSoundOn.hasAttribute("sound")) {
+        clickSound.autoplay = false;
+    } else {
+        clickSound.autoplay = true;
+    }
     console.log(clickSound);
+}
+
+function pushItems() {
+    healtItems.forEach((item) => {
+        hpItemsArray.push(item);
+    });
+}
+
+function loseHealth() {
+    healthPoints--;
+    hpItemsArray.reverse();
+    hpItemsArray.forEach((item, index) => {
+        if (healthPoints === index) {
+            item.style.fill = "rgba(255, 255, 255, 0)";
+            console.log(index);
+        }
+        console.log(hpItemsArray);
+    });
+    console.log(hpItemsArray);
+}
+
+function soundGameOver() {
+    const gameOverSound = new Audio();
+    gameOverSound.src = "../sound/lose-sound.mp3";
+    if (buttonSoundOn.hasAttribute("sound")) {
+        gameOverSound.autoplay = false;
+    } else {
+        gameOverSound.autoplay = true;
+    }
 }
